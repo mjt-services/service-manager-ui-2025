@@ -1,0 +1,45 @@
+{
+  "name": "@mjt-services/service-manager-ui-2025",
+  "version": "2025.1.15-0945",
+  "sideEffects": false,
+  "description": "service manager UI",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "docs": "typedoc src/index.ts",
+    "build-docs": "pnpm run build && pnpm run docs",
+    "changelog": "./scripts/changes.sh > CHANGELOG.md",
+    "changelog-version": "pnpm run changelog && ./scripts/version.sh",
+    "publish": "pnpm run build-docs && pnpm run changelog-version",
+    "start": "deno run --allow-net --allow-env --allow-read ./dist/index.js",
+    "build": "pnpm run build-rollup && pnpm run build-docker",
+    "build-rollup": "rollup -c",
+    "build-docker": "scripts/build.sh",
+    "watch": "rollup -c --watch",
+    "check": "tsc --noEmit -w"
+  },
+  "keywords": [],
+  "author": "Matt Taylor (https://mjt.dev)",
+  "license": "MIT",
+  "dependencies": {
+    "@mjt-engine/assert": "github:mjt-engine/assert",
+    "@mjt-engine/message": "github:mjt-engine/message",
+    "@mjt-engine/object": "github:mjt-engine/object",
+    "commander": "^12.0.0",
+    "vite": "^6.0.11"
+  },
+  "devDependencies": {
+    "typedoc": "^0.27.6",
+    "typescript": "^5.7.3",
+    "@typescript-eslint/eslint-plugin": "^8.18.2",
+    "@typescript-eslint/parser": "^8.18.2",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.3",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "prettier": "^3.4.2"
+  }
+}
