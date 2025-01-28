@@ -8,14 +8,14 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { AppConfig } from "../AppConfig";
+import { AppConfigIdb } from "../state/AppConfigIdb";
 
 export const ConfigButton = () => {
   const [open, setOpen] = useState(false);
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    Idbs.get(AppConfig, "config").then((config) => {
+    Idbs.get(AppConfigIdb, "config").then((config) => {
       setToken(config?.authToken || "");
     });
   }, []);
@@ -26,7 +26,7 @@ export const ConfigButton = () => {
 
   const handleSave = () => {
     setOpen(false);
-    Idbs.update(AppConfig, "config", (config) => ({
+    Idbs.update(AppConfigIdb, "config", (config) => ({
       ...config,
       authToken: token,
     }));

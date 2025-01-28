@@ -1,7 +1,7 @@
 import { Idbs } from "@mjt-engine/idb";
 import { Messages } from "@mjt-engine/message";
-import { AppConfig } from "../AppConfig";
-import { GLOBALS } from "../GLOBALS";
+import { AppConfigIdb } from "../state/AppConfigIdb";
+import { GLOBALS } from "../state/GLOBALS";
 import { useConnection } from "./useConnection";
 import type { VastaiConnectionMap } from "@mjt-services/vastai-common-2025";
 import type { TunnelConnectionMap } from "@mjt-services/tunnel-common-2025";
@@ -11,7 +11,7 @@ export let _connection:
   | undefined = undefined;
 
 export const createConnection = async () => {
-  const config = await Idbs.get(AppConfig, "config");
+  const config = await Idbs.get(AppConfigIdb, "config");
   const con = await Messages.createConnection<
     VastaiConnectionMap & TunnelConnectionMap
   >({

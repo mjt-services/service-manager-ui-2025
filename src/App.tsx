@@ -1,16 +1,16 @@
-import { ConfigButton } from "./ui/ConfigButton";
+import { useState } from "react";
 import {
-  createTheme,
-  ThemeProvider,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
   CssBaseline,
   Box,
-  Stack,
-  Button,
+  ThemeProvider,
+  createTheme,
 } from "@mui/material";
-import { useState } from "react";
-import { getConnection } from "./connection/Connections";
-import type { VastAiSearchResponse } from "@mjt-services/vastai-common-2025";
-import { VastAiContractsTable } from "./ui/VastAiContractsTable";
+import { Objects } from "@mjt-engine/object";
+import { SECTION_MAP } from "./SECTION_MAP";
 
 const darkTheme = createTheme({
   palette: {
@@ -19,10 +19,13 @@ const darkTheme = createTheme({
 });
 
 export const App = () => {
-  const [active, setActive] = useState(false);
-  return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
+  const [currentSection, setCurrentSection] =
+    useState<keyof typeof SECTION_MAP>("catalogue");
+
+  const sections = Objects.keys(SECTION_MAP);
+
+  const renderSection = () => {
+    return (
       <Box
         display="flex"
         flexDirection="column"
@@ -31,38 +34,35 @@ export const App = () => {
         minHeight="100vh"
         textAlign="center"
       >
-        <h1>Service Manager</h1>
-        <ConfigButton />
-        <VastaiMarketDisplay />
+        {SECTION_MAP[currentSection]}
       </Box>
-    </ThemeProvider>
-  );
-};
+    );
+  };
 
-export const VastaiMarketDisplay = () => {
-  const [contracts, setContracts] = useState<VastAiSearchResponse>([]);
-  return (
-    <Stack spacing={2} alignItems="center">
+  const renderButtons = (sections: (keyof typeof SECTION_MAP)[]) => {
+    return sections.map((section) => (
       <Button
-        variant="contained"
-        onClick={async () => {
-          const con = await getConnection();
-          const resp: VastAiSearchResponse = await con.request({
-            subject: "vastai.search",
-            request: {
-              body: {
-                query:
-                  "compute_cap > 610 total_flops > 5 datacenter=True dph < 0.2",
-              },
-            },
-          });
-          console.log(resp);
-          setContracts(resp);
-        }}
+        key={section}
+        color="inherit"
+        onClick={() => setCurrentSection(section)}
       >
-        Refresh
+        {section.charAt(0).toUpperCase() + section.slice(1)}
       </Button>
-      <VastAiContractsTable data={contracts} />
-    </Stack>
+    ));
+  };
+
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" style={{ flexGrow: 1 }}>
+            Service Manager
+          </Typography>
+          {renderButtons(sections)}
+        </Toolbar>
+      </AppBar>
+      {renderSection()}
+    </ThemeProvider>
   );
 };
