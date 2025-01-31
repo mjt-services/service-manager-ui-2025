@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import type { CatalogueItem } from "../../type/CatalogueItem";
+import type { InstanceTemplate } from "../../type/InstanceTemplate";
 import { CatalogueTable } from "./CatalogueTable";
 import { EditItemForm } from "./EditItemForm";
 

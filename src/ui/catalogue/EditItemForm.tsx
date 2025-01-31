@@ -9,14 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import type { CatalogueItem } from "../../type/CatalogueItem";
+import type { InstanceTemplate } from "../../type/InstanceTemplate";
 import { CatalogueTable } from "./CatalogueTable";
 
 
 
 export const EditItemForm: React.FC<{
-  selectedItem: CatalogueItem;
-  onUpdateItem: (updatedItem: CatalogueItem) => void;
+  selectedItem: InstanceTemplate;
+  onUpdateItem: (updatedItem: InstanceTemplate) => void;
 }> = ({ selectedItem, onUpdateItem }) => (
   <Box mt={4}>
     <Typography variant="h5" gutterBottom>

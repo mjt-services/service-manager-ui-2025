@@ -1,5 +1,5 @@
 import type React from "react";
-import type { CatalogueItem } from "../../type/CatalogueItem";
+import type { InstanceTemplate } from "../../type/InstanceTemplate";
 import {
   TableContainer,
   Paper,
@@ -13,9 +13,9 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export const CatalogueTable: React.FC<{
-  items: CatalogueItem[];
-  onSelectItem: (item: CatalogueItem) => void;
-  onRemoveItem: (item: CatalogueItem) => void;
+  items: InstanceTemplate[];
+  onSelectItem: (item: InstanceTemplate) => void;
+  onRemoveItem: (item: InstanceTemplate) => void;
 }> = ({ items, onSelectItem, onRemoveItem }) => (
   <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
     <Table stickyHeader aria-label="catalogue table">

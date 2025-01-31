@@ -20,7 +20,7 @@ const darkTheme = createTheme({
 
 export const App = () => {
   const [currentSection, setCurrentSection] =
-    useState<keyof typeof SECTION_MAP>("catalogue");
+    useState<keyof typeof SECTION_MAP>("instances");
 
   const sections = Objects.keys(SECTION_MAP);
 

@@ -13,19 +13,21 @@ import {
 import { orderBy } from "lodash";
 import React, { useEffect, useState } from "react";
 import { VastAiContractRow } from "./VastAiContractRow";
+import type { InstanceTemplate } from "../type/InstanceTemplate";
 
-export const VastAiContractsTable: React.FC<{ data: VastAiSearchResponse }> = ({
-  data,
-}) => {
+export const VastAiContractsTable: React.FC<{
+  contracts: VastAiSearchResponse;
+  instanceTemplate?: InstanceTemplate;
+}> = ({ contracts, instanceTemplate }) => {
   const [sortCriteria, setSortCriteria] = useState<
     keyof VastAiContract | string
   >("search.totalHour");
   const [sortedData, setSortedData] = useState<VastAiContract[]>([]);
 
   useEffect(() => {
-    const sorted = orderBy(data, [sortCriteria], ["asc"]);
+    const sorted = orderBy(contracts, [sortCriteria], ["asc"]);
     setSortedData(sorted);
-  }, [data, sortCriteria]);
+  }, [contracts, sortCriteria]);
 
   const handleSortChange = (event: SelectChangeEvent<string>) => {
     setSortCriteria(event.target.value as keyof VastAiContract);
@@ -54,10 +56,12 @@ export const VastAiContractsTable: React.FC<{ data: VastAiSearchResponse }> = ({
         </Select>
       </FormControl>
       {sortedData.map((contract, index) => (
-        <VastAiContractRow key={index} contract={contract} />
+        <VastAiContractRow
+          key={index}
+          contract={contract}
+          instanceTemplate={instanceTemplate}
+        />
       ))}
     </Box>
   );
 };
-
-export default VastAiContractsTable;

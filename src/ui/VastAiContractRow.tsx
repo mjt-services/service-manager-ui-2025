@@ -1,15 +1,18 @@
 import type { VastAiContract } from "@mjt-services/vastai-common-2025";
 import { Box, Button, Paper, useTheme } from "@mui/material";
+import { Stack } from "@mui/system";
 import type React from "react";
 import { formatFloat } from "../common/formatFloat";
+import type { InstanceTemplate } from "../type/InstanceTemplate";
 import { HighlightedBox } from "./HighlightedBox";
 import { InfoBox } from "./InfoBox";
-import { Stack } from "@mui/system";
 import { Instances } from "../instance/Instances";
+import { Asserts } from "@mjt-engine/assert";
 
-export const VastAiContractRow: React.FC<{ contract: VastAiContract }> = ({
-  contract,
-}) => {
+export const VastAiContractRow: React.FC<{
+  contract: VastAiContract;
+  instanceTemplate?: InstanceTemplate;
+}> = ({ contract, instanceTemplate }) => {
   const theme = useTheme();
   const highlightStyles = [
     { backgroundColor: theme.palette.primary.dark },
@@ -31,12 +34,14 @@ export const VastAiContractRow: React.FC<{ contract: VastAiContract }> = ({
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
         <Stack>
           <Button
+            disabled={!instanceTemplate?.image}
             onClick={() => {
-              const machineId = contract.machine_id;
-              // Instances.rentInstance({
-              //   image,
-              //   machineId,
-              // });
+              const contractId = contract.ask_contract_id;
+
+              Instances.rentInstance({
+                image: Asserts.assertValue(instanceTemplate?.image),
+                contractId: contractId,
+              });
             }}
           >
             Rent
