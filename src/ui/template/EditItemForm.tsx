@@ -1,18 +1,10 @@
-
-
-import AddIcon from "@mui/icons-material/Add";
 import {
   Box,
-  Container,
-  IconButton,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import type { InstanceTemplate } from "../../type/InstanceTemplate";
-import { CatalogueTable } from "./CatalogueTable";
-
-
 
 export const EditItemForm: React.FC<{
   selectedItem: InstanceTemplate;
@@ -35,6 +27,26 @@ export const EditItemForm: React.FC<{
       name="image"
       value={selectedItem.image}
       onChange={(e) => onUpdateItem({ ...selectedItem, image: e.target.value })}
+      margin="normal"
+      fullWidth
+    />
+    <TextField
+      label="Target Port"
+      name="targetPort"
+      value={selectedItem.targetPort}
+      onChange={(e) =>
+        onUpdateItem({ ...selectedItem, targetPort: parseInt(e.target.value) })
+      }
+      margin="normal"
+      fullWidth
+    />
+    <TextField
+      label="On Start Command"
+      name="onStartCmd"
+      value={selectedItem.onStartCmd}
+      onChange={(e) =>
+        onUpdateItem({ ...selectedItem, onStartCmd: e.target.value })
+      }
       margin="normal"
       fullWidth
     />

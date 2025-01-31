@@ -1,17 +1,17 @@
+import { Asserts } from "@mjt-engine/assert";
 import type { VastAiContract } from "@mjt-services/vastai-common-2025";
 import { Box, Button, Paper, useTheme } from "@mui/material";
 import { Stack } from "@mui/system";
 import type React from "react";
 import { formatFloat } from "../common/formatFloat";
+import { Instances } from "../instance/Instances";
 import type { InstanceTemplate } from "../type/InstanceTemplate";
 import { HighlightedBox } from "./HighlightedBox";
 import { InfoBox } from "./InfoBox";
-import { Instances } from "../instance/Instances";
-import { Asserts } from "@mjt-engine/assert";
 
 export const VastAiContractRow: React.FC<{
   contract: VastAiContract;
-  instanceTemplate?: InstanceTemplate;
+  instanceTemplate: InstanceTemplate;
 }> = ({ contract, instanceTemplate }) => {
   const theme = useTheme();
   const highlightStyles = [
@@ -36,11 +36,10 @@ export const VastAiContractRow: React.FC<{
           <Button
             disabled={!instanceTemplate?.image}
             onClick={() => {
-              const contractId = contract.ask_contract_id;
-
               Instances.rentInstance({
-                image: Asserts.assertValue(instanceTemplate?.image),
-                contractId: contractId,
+                contractId: contract.ask_contract_id,
+                label: instanceTemplate.name,
+                ...instanceTemplate,
               });
             }}
           >

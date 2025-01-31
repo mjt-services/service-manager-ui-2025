@@ -1,13 +1,13 @@
-import { CatalogueDisplay } from "./ui/catalogue/CatalogueDisplay";
+import { TemplateSection } from "./ui/template/TemplateSection";
 import { ConfigButton } from "./ui/ConfigButton";
 import { InstanceSection } from "./ui/instance/InstancesSection";
-import { VastaiMarketDisplay } from "./VastaiMarketDisplay";
+import { VastaiMarketSection } from "./ui/market/VastaiMarketSection";
 
 export const SECTION_MAP = {
   home: <>HOME</>,
   log: <>LOG</>,
   config: <ConfigButton />,
-  market: <VastaiMarketDisplay />,
-  catalogue: <CatalogueDisplay />,
+  market: <VastaiMarketSection />,
+  template: <TemplateSection />,
   instances: <InstanceSection />,
 };

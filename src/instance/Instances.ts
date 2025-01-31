@@ -1,30 +1,21 @@
+import type {
+  VastaiConnectionMap,
+  VastAiInstance,
+} from "@mjt-services/vastai-common-2025";
 import { getConnection } from "../connection/Connections";
+import { Idbs } from "@mjt-engine/idb";
+import { InstanceTemplateIdb } from "../state/InstanceTemplateIdb";
+import { Asserts } from "@mjt-engine/assert";
 
-export const rentInstance = async ({
-  contractId,
-  diskGb = 10,
-  image,
-  env,
-  exposedPortMappings,
-}: {
-  contractId: number;
-  diskGb?: number;
-  image: string;
-  env?: Record<string, string>;
-  exposedPortMappings?: Record<number, number>;
-}) => {
+export const rentInstance = async (
+  body: VastaiConnectionMap["vastai.create.instance"]["request"]["body"]
+) => {
+  console.log("body", body);
   const con = await getConnection();
   const resp = await con.request({
     subject: "vastai.create.instance",
     request: {
-      body: {
-        // TODO fix machineId->contractId
-        machineId: contractId,
-        diskGb,
-        image,
-        env,
-        exposedPortMappings,
-      },
+      body,
     },
   });
   console.log(resp);
@@ -46,20 +37,24 @@ export const stopInstance = async (contractId: number) => {
 };
 
 export const createTunnel = async ({
-  contractId,
-  serviceName,
-  targetPort,
+  instance,
 }: {
-  contractId: number;
-  serviceName: string;
-  targetPort: number;
+  instance: VastAiInstance;
 }) => {
+  console.log("instance", instance);
   const con = await getConnection();
+  const { id, label } = instance;
+  const serviceName = Asserts.assertValue(label);
+  const instanceTemplate = await Idbs.get(InstanceTemplateIdb, serviceName);
+  const targetPort = Asserts.assertValue(instanceTemplate?.targetPort);
+  console.log("instanceTemplate", instanceTemplate);
+  console.log("targetPort", targetPort);
+  console.log("serviceName", serviceName);
   const resp = await con.request({
     subject: "vastai.connect.instance",
     request: {
       body: {
-        contractId,
+        contractId: id,
         serviceName,
         targetPort,
       },

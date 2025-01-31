@@ -124,7 +124,13 @@ export const InstanceSection = () => {
                     >
                       Stop
                     </Button>
-                    <Button variant="contained" color="primary">
+                    <Button
+                      onClick={() => {
+                        Instances.createTunnel({ instance });
+                      }}
+                      variant="contained"
+                      color="primary"
+                    >
                       Create Tunnel
                     </Button>
                   </Stack>

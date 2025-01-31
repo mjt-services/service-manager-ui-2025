@@ -2,22 +2,24 @@ import { Box, Container, Typography } from "@mui/material";
 import React, { useState } from "react";
 import type { InstanceTemplate } from "../../type/InstanceTemplate";
 import { AddItemForm } from "./AddItemForm";
-import { CatalogueTable } from "./CatalogueTable";
+import { TemplateTable } from "./TemplateTable";
 import { EditItemForm } from "./EditItemForm";
 import { Idbs } from "@mjt-engine/idb";
-import { CatalogueItemsIdb } from "../../state/CatalogueItemsIdb";
+import { InstanceTemplateIdb } from "../../state/InstanceTemplateIdb";
 import { isDefined } from "@mjt-engine/object";
 
-export const CatalogueDisplay: React.FC = () => {
+export const TemplateSection: React.FC = () => {
   const [items, setItems] = useState<InstanceTemplate[]>([]);
-  const [selectedItem, setSelectedItem] = useState<InstanceTemplate | null>(null);
+  const [selectedItem, setSelectedItem] = useState<InstanceTemplate | null>(
+    null
+  );
   const [newItemName, setNewItemName] = useState<string>("");
   const [newItemImage, setNewItemImage] = useState<string>("");
 
   React.useEffect(() => {
-    Idbs.list(CatalogueItemsIdb).then(async (keys) => {
+    Idbs.list(InstanceTemplateIdb).then(async (keys) => {
       const items = (
-        await Promise.all(keys.map((key) => Idbs.get(CatalogueItemsIdb, key)))
+        await Promise.all(keys.map((key) => Idbs.get(InstanceTemplateIdb, key)))
       ).filter(isDefined);
       setItems(items);
     });
@@ -30,18 +32,18 @@ export const CatalogueDisplay: React.FC = () => {
   const handleRemoveItem = async (item: InstanceTemplate) => {
     setItems(items.filter((i) => i !== item));
 
-    await Idbs.remove(CatalogueItemsIdb, item.name);
+    await Idbs.remove(InstanceTemplateIdb, item.name);
   };
 
   const handleAddItem = async () => {
     const newItem: InstanceTemplate = {
       name: newItemName,
       image: newItemImage,
-      diskGb: 0,
+      diskGb: 10,
       env: {},
       exposedPortMappings: {},
     };
-    await Idbs.put(CatalogueItemsIdb, newItemName, newItem);
+    await Idbs.put(InstanceTemplateIdb, newItemName, newItem);
     setItems([...items, newItem]);
     setNewItemName("");
     setNewItemImage("");
@@ -51,7 +53,7 @@ export const CatalogueDisplay: React.FC = () => {
     setItems(
       items.map((item) => (item.name === updatedItem.name ? updatedItem : item))
     );
-    await Idbs.put(CatalogueItemsIdb, updatedItem.name, updatedItem);
+    await Idbs.put(InstanceTemplateIdb, updatedItem.name, updatedItem);
     setSelectedItem(updatedItem);
   };
 
@@ -59,7 +61,7 @@ export const CatalogueDisplay: React.FC = () => {
     <Container>
       <Box mt={4}>
         <Typography variant="h4" gutterBottom>
-          Catalogue
+          Instance Templates
         </Typography>
         <AddItemForm
           newItemName={newItemName}
@@ -70,7 +72,7 @@ export const CatalogueDisplay: React.FC = () => {
         />
       </Box>
 
-      <CatalogueTable
+      <TemplateTable
         items={items}
         onSelectItem={handleSelectItem}
         onRemoveItem={handleRemoveItem}

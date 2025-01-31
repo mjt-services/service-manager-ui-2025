@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import type { InstanceTemplate } from "../../type/InstanceTemplate";
-import { CatalogueTable } from "./CatalogueTable";
+import { TemplateTable } from "./TemplateTable";
 import { EditItemForm } from "./EditItemForm";
 
 export const AddItemForm: React.FC<{

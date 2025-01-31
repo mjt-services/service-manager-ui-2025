@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const CatalogueTable: React.FC<{
+export const TemplateTable: React.FC<{
   items: InstanceTemplate[];
   onSelectItem: (item: InstanceTemplate) => void;
   onRemoveItem: (item: InstanceTemplate) => void;
@@ -23,6 +23,8 @@ export const CatalogueTable: React.FC<{
         <TableRow>
           <TableCell>Name</TableCell>
           <TableCell>Image</TableCell>
+          <TableCell>Target Port</TableCell>
+          <TableCell>On Start Command</TableCell>
           <TableCell>Disk GB</TableCell>
           <TableCell>Environment Variables</TableCell>
           <TableCell>Exposed Port Mappings</TableCell>
@@ -34,6 +36,8 @@ export const CatalogueTable: React.FC<{
           <TableRow key={item.name} hover onClick={() => onSelectItem(item)}>
             <TableCell>{item.name}</TableCell>
             <TableCell>{item.image}</TableCell>
+            <TableCell>{item.targetPort}</TableCell>
+            <TableCell>{item.onStartCmd}</TableCell>
             <TableCell>{item.diskGb}</TableCell>
             <TableCell>{item.env ? JSON.stringify(item.env) : ""}</TableCell>
             <TableCell>

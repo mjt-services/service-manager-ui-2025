@@ -31,7 +31,7 @@ importers:
         version: https://codeload.github.com/mjt-services/tunnel-common-2025/tar.gz/7835f68eb4eed9d8b8d9dea670ee058ef1c4dbf4
       '@mjt-services/vastai-common-2025':
         specifier: github:mjt-services/vastai-common-2025
-        version: https://codeload.github.com/mjt-services/vastai-common-2025/tar.gz/e0f4b8d25f958a68515b1bd7898688effd1482a0
+        version: https://codeload.github.com/mjt-services/vastai-common-2025/tar.gz/5b87f40760e0b5fad2a08b400ec5868af201e49e
       '@mui/icons-material':
         specifier: ^6.4.1
         version: 6.4.1(@mui/material@6.4.1(@emotion/react@11.14.0(@types/react@19.0.8)(react@19.0.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.0.8)(react@19.0.0))(@types/react@19.0.8)(react@19.0.0))(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.0.8)(react@19.0.0)
@@ -457,9 +457,9 @@ packages:
     resolution: {tarball: https://codeload.github.com/mjt-services/tunnel-common-2025/tar.gz/7835f68eb4eed9d8b8d9dea670ee058ef1c4dbf4}
     version: 2025.1.22-1152
 
-  '@mjt-services/vastai-common-2025@https://codeload.github.com/mjt-services/vastai-common-2025/tar.gz/e0f4b8d25f958a68515b1bd7898688effd1482a0':
-    resolution: {tarball: https://codeload.github.com/mjt-services/vastai-common-2025/tar.gz/e0f4b8d25f958a68515b1bd7898688effd1482a0}
-    version: 2025.1.24-1031
+  '@mjt-services/vastai-common-2025@https://codeload.github.com/mjt-services/vastai-common-2025/tar.gz/5b87f40760e0b5fad2a08b400ec5868af201e49e':
+    resolution: {tarball: https://codeload.github.com/mjt-services/vastai-common-2025/tar.gz/5b87f40760e0b5fad2a08b400ec5868af201e49e}
+    version: 2025.1.29-1036
 
   '@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.3':
     resolution: {integrity: sha512-QZHtlVgbAdy2zAqNA9Gu1UpIuI8Xvsd1v8ic6B2pZmeFnFcMWiPLfWXh7TVw4eGEZ/C9TH281KwhVoeQUKbyjw==}
@@ -2330,7 +2330,7 @@ snapshots:
     dependencies:
       '@mjt-engine/object': https://codeload.github.com/mjt-engine/object/tar.gz/75263a186b55c31764efb3a1bc075285f971946b
 
-  '@mjt-services/vastai-common-2025@https://codeload.github.com/mjt-services/vastai-common-2025/tar.gz/e0f4b8d25f958a68515b1bd7898688effd1482a0':
+  '@mjt-services/vastai-common-2025@https://codeload.github.com/mjt-services/vastai-common-2025/tar.gz/5b87f40760e0b5fad2a08b400ec5868af201e49e':
     dependencies:
       '@mjt-engine/object': https://codeload.github.com/mjt-engine/object/tar.gz/75263a186b55c31764efb3a1bc075285f971946b
 

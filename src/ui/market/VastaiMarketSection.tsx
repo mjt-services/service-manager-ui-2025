@@ -8,15 +8,15 @@ import {
   InputLabel,
 } from "@mui/material";
 import type { VastAiSearchResponse } from "@mjt-services/vastai-common-2025";
-import type { InstanceTemplate } from "./type/InstanceTemplate";
+import type { InstanceTemplate } from "../../type/InstanceTemplate";
 import { Idbs } from "@mjt-engine/idb";
-import { CatalogueItemsIdb } from "./state/CatalogueItemsIdb";
+import { InstanceTemplateIdb } from "../../state/InstanceTemplateIdb";
 import { isDefined } from "@mjt-engine/object";
 import { useEffect, useState } from "react";
-import { getConnection } from "./connection/Connections";
-import { VastAiContractsTable } from "./ui/VastAiContractsTable";
+import { getConnection } from "../../connection/Connections";
+import { VastAiContractsTable } from "../VastAiContractsTable";
 
-export const VastaiMarketDisplay = () => {
+export const VastaiMarketSection = () => {
   const [contracts, setContracts] = useState<VastAiSearchResponse>([]);
   const [query, setQuery] = useState<string>(
     "compute_cap > 610 total_flops > 5 datacenter=True dph < 0.2"
@@ -30,9 +30,9 @@ export const VastaiMarketDisplay = () => {
 
   useEffect(() => {
     updateContracts();
-    Idbs.list(CatalogueItemsIdb).then(async (keys) => {
+    Idbs.list(InstanceTemplateIdb).then(async (keys) => {
       const items = (
-        await Promise.all(keys.map((key) => Idbs.get(CatalogueItemsIdb, key)))
+        await Promise.all(keys.map((key) => Idbs.get(InstanceTemplateIdb, key)))
       ).filter(isDefined);
       setInstanceTemplates(items);
     });
@@ -89,10 +89,12 @@ export const VastaiMarketDisplay = () => {
       >
         Update Contracts
       </Button>
-      <VastAiContractsTable
-        contracts={contracts}
-        instanceTemplate={selectedInstanceTemplate}
-      />
+      {selectedInstanceTemplate && (
+        <VastAiContractsTable
+          contracts={contracts}
+          instanceTemplate={selectedInstanceTemplate}
+        />
+      )}
     </Stack>
   );
 };

@@ -17,7 +17,7 @@ import type { InstanceTemplate } from "../type/InstanceTemplate";
 
 export const VastAiContractsTable: React.FC<{
   contracts: VastAiSearchResponse;
-  instanceTemplate?: InstanceTemplate;
+  instanceTemplate: InstanceTemplate;
 }> = ({ contracts, instanceTemplate }) => {
   const [sortCriteria, setSortCriteria] = useState<
     keyof VastAiContract | string
