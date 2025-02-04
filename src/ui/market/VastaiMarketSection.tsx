@@ -10,11 +10,12 @@ import {
 import type { VastAiSearchResponse } from "@mjt-services/vastai-common-2025";
 import type { InstanceTemplate } from "../../type/InstanceTemplate";
 import { Idbs } from "@mjt-engine/idb";
-import { InstanceTemplateIdb } from "../../state/InstanceTemplateIdb";
 import { isDefined } from "@mjt-engine/object";
 import { useEffect, useState } from "react";
 import { getConnection } from "../../connection/Connections";
 import { VastAiContractsTable } from "../VastAiContractsTable";
+import { Datas } from "../../data/Datas";
+import { InstanceTemplateDbStore } from "../../state/InstanceTemplateDbStore";
 
 export const VastaiMarketSection = () => {
   const [contracts, setContracts] = useState<VastAiSearchResponse>([]);
@@ -30,10 +31,25 @@ export const VastaiMarketSection = () => {
 
   useEffect(() => {
     updateContracts();
-    Idbs.list(InstanceTemplateIdb).then(async (keys) => {
+    // Idbs.list(InstanceTemplateIdb).then(async (keys) => {
+    //   const items = (
+    //     await Promise.all(keys.map((key) => Idbs.get(InstanceTemplateIdb, key)))
+    //   ).filter(isDefined);
+    //   setInstanceTemplates(items);
+    // });
+    Datas.list({ dbStore: InstanceTemplateDbStore }).then(async (keys) => {
+      console.log("keys", keys);
       const items = (
-        await Promise.all(keys.map((key) => Idbs.get(InstanceTemplateIdb, key)))
+        await Promise.all(
+          keys.map((key) =>
+            Datas.get<InstanceTemplate>({
+              dbStore: InstanceTemplateDbStore,
+              key,
+            })
+          )
+        )
       ).filter(isDefined);
+      console.log("items", items);
       setInstanceTemplates(items);
     });
   }, []);
@@ -62,7 +78,7 @@ export const VastaiMarketSection = () => {
         fullWidth
       />
       <FormControl sx={{ minWidth: "20ch" }}>
-        <InputLabel id="catalogue-item-select-label">Catalogue Item</InputLabel>
+        <InputLabel id="catalogue-item-select-label">Template</InputLabel>
         <Select
           labelId="catalogue-item-select-label"
           value={selectedInstanceTemplate?.name || ""}

@@ -1,13 +1,6 @@
 import type { DataConnectionMap } from "@mjt-services/data-common-2025";
 import { getConnection } from "../connection/Connections";
 
-export const add = async (
-  body: DataConnectionMap["data.add"]["request"]["body"]
-) => {
-  const con = await getConnection();
-  return con.request({ subject: "data.add", request: { body } });
-};
-
 export const get = async <T = unknown>(
   body: DataConnectionMap["data.get"]["request"]["body"]
 ) => {
@@ -36,4 +29,4 @@ export const remove = async (
   return con.request({ subject: "data.remove", request: { body } });
 };
 
-export const Datas = { put, add, get, list, remove };
+export const Datas = { put, get, list, remove };

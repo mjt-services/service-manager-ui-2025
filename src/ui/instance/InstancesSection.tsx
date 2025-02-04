@@ -14,9 +14,26 @@ import {
 } from "@mui/material";
 import { getConnection } from "../../connection/Connections";
 import { Instances } from "../../instance/Instances";
+import { Asserts } from "@mjt-engine/assert";
 
 export const InstanceSection = () => {
   const [instances, setInstances] = useState<VastAiInstance[]>([]);
+  const [tunnelPorts, setTunnelPorts] = useState<Record<string, number>>({});
+
+  const updateTunnelPortForInstance = async (instance: VastAiInstance) => {
+    const con = await getConnection();
+    const label = Asserts.assertValue(instance.label);
+    const resp = await con.request({
+      subject: "tunnel.resolve",
+      request: {
+        body: {
+          name: label,
+        },
+      },
+    });
+    const newTunnelPorts = { ...tunnelPorts, [label]: resp.port };
+    setTunnelPorts(newTunnelPorts);
+  };
 
   const updateList = async () => {
     const con = await getConnection();
@@ -26,12 +43,18 @@ export const InstanceSection = () => {
         body: {},
       },
     });
+    console.log(instances);
     setInstances(instances);
+    for (const instance of instances) {
+      updateTunnelPortForInstance(instance);
+    }
   };
 
   useEffect(() => {
     updateList();
   }, []);
+
+  console.log("tp", tunnelPorts);
 
   return (
     <div>
@@ -53,12 +76,14 @@ export const InstanceSection = () => {
               <TableCell>ID</TableCell>
               <TableCell>Label</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>Status Message</TableCell>
               <TableCell>CPU</TableCell>
               <TableCell>GPU</TableCell>
               <TableCell>RAM</TableCell>
               <TableCell>Disk</TableCell>
               <TableCell>Network</TableCell>
               <TableCell>Created At</TableCell>
+              <TableCell>Tunnel Port</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -68,6 +93,7 @@ export const InstanceSection = () => {
                 <TableCell>{instance.id}</TableCell>
                 <TableCell>{instance.label}</TableCell>
                 <TableCell>{instance.actual_status}</TableCell>
+                <TableCell>{instance.status_msg}</TableCell>
                 <TableCell>
                   <Typography variant="body2">
                     Name: {instance.cpu_name}
@@ -114,6 +140,9 @@ export const InstanceSection = () => {
                   {new Date(instance.start_date).toLocaleString()}
                 </TableCell>
                 <TableCell>
+                  {tunnelPorts[instance.label || ""] || "Not Available"}
+                </TableCell>
+                <TableCell>
                   <Stack gap={"1em"}>
                     <Button
                       onClick={() => {
@@ -132,6 +161,15 @@ export const InstanceSection = () => {
                       color="primary"
                     >
                       Create Tunnel
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        updateTunnelPortForInstance(instance);
+                      }}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Resolve Tunnel
                     </Button>
                   </Stack>
                 </TableCell>

@@ -4,8 +4,10 @@ import type {
 } from "@mjt-services/vastai-common-2025";
 import { getConnection } from "../connection/Connections";
 import { Idbs } from "@mjt-engine/idb";
-import { InstanceTemplateIdb } from "../state/InstanceTemplateIdb";
 import { Asserts } from "@mjt-engine/assert";
+import { Datas } from "../data/Datas";
+import { InstanceTemplateDbStore } from "../state/InstanceTemplateDbStore";
+import type { InstanceTemplate } from "../type/InstanceTemplate";
 
 export const rentInstance = async (
   body: VastaiConnectionMap["vastai.create.instance"]["request"]["body"]
@@ -45,7 +47,11 @@ export const createTunnel = async ({
   const con = await getConnection();
   const { id, label } = instance;
   const serviceName = Asserts.assertValue(label);
-  const instanceTemplate = await Idbs.get(InstanceTemplateIdb, serviceName);
+  // const instanceTemplate = await Idbs.get(InstanceTemplateIdb, serviceName);
+  const instanceTemplate = await Datas.get<InstanceTemplate>({
+    dbStore: InstanceTemplateDbStore,
+    key: serviceName,
+  });
   const targetPort = Asserts.assertValue(instanceTemplate?.targetPort);
   console.log("instanceTemplate", instanceTemplate);
   console.log("targetPort", targetPort);
