@@ -34,6 +34,11 @@ export const InstanceSection = () => {
     const newTunnelPorts = { ...tunnelPorts, [label]: resp.port };
     setTunnelPorts(newTunnelPorts);
   };
+  useEffect(() => {
+    const intervalId = setInterval(updateList, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const updateList = async () => {
     const con = await getConnection();
@@ -43,18 +48,15 @@ export const InstanceSection = () => {
         body: {},
       },
     });
-    console.log(instances);
     setInstances(instances);
-    for (const instance of instances) {
-      updateTunnelPortForInstance(instance);
-    }
+    // for (const instance of instances) {
+    //   updateTunnelPortForInstance(instance);
+    // }
   };
 
   useEffect(() => {
     updateList();
   }, []);
-
-  console.log("tp", tunnelPorts);
 
   return (
     <div>
