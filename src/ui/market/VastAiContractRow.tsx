@@ -3,11 +3,11 @@ import type { VastAiContract } from "@mjt-services/vastai-common-2025";
 import { Box, Button, Paper, useTheme } from "@mui/material";
 import { Stack } from "@mui/system";
 import type React from "react";
-import { formatFloat } from "../common/formatFloat";
-import { Instances } from "../instance/Instances";
-import type { InstanceTemplate } from "../type/InstanceTemplate";
-import { HighlightedBox } from "./HighlightedBox";
-import { InfoBox } from "./InfoBox";
+import { formatFloat } from "../../common/formatFloat";
+import { Instances } from "../../instance/Instances";
+import type { InstanceTemplate } from "../../type/InstanceTemplate";
+import { HighlightedBox } from "../HighlightedBox";
+import { InfoBox } from "../InfoBox";
 
 export const VastAiContractRow: React.FC<{
   contract: VastAiContract;
@@ -70,6 +70,17 @@ export const VastAiContractRow: React.FC<{
         <HighlightedBox style={highlightStyles[1]}>
           <InfoBox title="GPU Name" value={contract.gpu_name} bold />
           <InfoBox
+            title="GPU RAM"
+            value={contract.gpu_ram / 1024}
+            unit="GB"
+            bold
+          />
+          <InfoBox
+            title="CUDA Vers"
+            value={contract.cuda_max_good}
+            bold
+          />
+          <InfoBox
             title="Reliability"
             value={formatFloat(contract.reliability)}
           />
@@ -86,12 +97,6 @@ export const VastAiContractRow: React.FC<{
           <InfoBox title="Score" value={formatFloat(contract.score)} />
         </HighlightedBox>
         <HighlightedBox style={highlightStyles[2]}>
-          <InfoBox
-            title="GPU RAM"
-            value={contract.gpu_ram / 1024}
-            unit="GB"
-            bold
-          />
           <InfoBox
             title="Start Date"
             value={new Date(contract.start_date * 1000).toLocaleDateString()}

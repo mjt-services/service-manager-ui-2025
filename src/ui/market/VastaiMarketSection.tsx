@@ -13,7 +13,7 @@ import { Idbs } from "@mjt-engine/idb";
 import { isDefined } from "@mjt-engine/object";
 import { useEffect, useState } from "react";
 import { getConnection } from "../../connection/Connections";
-import { VastAiContractsTable } from "../VastAiContractsTable";
+import { VastAiContractsTable } from "./VastAiContractsTable";
 import { Datas } from "../../data/Datas";
 import { InstanceTemplateDbStore } from "../../state/InstanceTemplateDbStore";
 

@@ -13,7 +13,7 @@ import {
 import { orderBy } from "lodash";
 import React, { useEffect, useState } from "react";
 import { VastAiContractRow } from "./VastAiContractRow";
-import type { InstanceTemplate } from "../type/InstanceTemplate";
+import type { InstanceTemplate } from "../../type/InstanceTemplate";
 
 export const VastAiContractsTable: React.FC<{
   contracts: VastAiSearchResponse;
