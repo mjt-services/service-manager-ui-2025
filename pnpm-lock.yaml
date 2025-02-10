@@ -26,6 +26,9 @@ importers:
       '@mjt-engine/object':
         specifier: github:mjt-engine/object
         version: https://codeload.github.com/mjt-engine/object/tar.gz/75263a186b55c31764efb3a1bc075285f971946b
+      '@mjt-services/daimon-common-2025':
+        specifier: github:mjt-services/daimon-common-2025
+        version: https://codeload.github.com/mjt-services/daimon-common-2025/tar.gz/bdbbac062cee9cdf703484a8b7af6bcf99e2f1e7
       '@mjt-services/data-common-2025':
         specifier: github:mjt-services/data-common-2025
         version: https://codeload.github.com/mjt-services/data-common-2025/tar.gz/17d89dd248c8722e973e1fa7cedeca60f8c66668
@@ -455,6 +458,10 @@ packages:
   '@mjt-engine/object@https://codeload.github.com/mjt-engine/object/tar.gz/75263a186b55c31764efb3a1bc075285f971946b':
     resolution: {tarball: https://codeload.github.com/mjt-engine/object/tar.gz/75263a186b55c31764efb3a1bc075285f971946b}
     version: 2025.1.19-1221
+
+  '@mjt-services/daimon-common-2025@https://codeload.github.com/mjt-services/daimon-common-2025/tar.gz/bdbbac062cee9cdf703484a8b7af6bcf99e2f1e7':
+    resolution: {tarball: https://codeload.github.com/mjt-services/daimon-common-2025/tar.gz/bdbbac062cee9cdf703484a8b7af6bcf99e2f1e7}
+    version: 2025.2.10-932
 
   '@mjt-services/data-common-2025@https://codeload.github.com/mjt-services/data-common-2025/tar.gz/17d89dd248c8722e973e1fa7cedeca60f8c66668':
     resolution: {tarball: https://codeload.github.com/mjt-services/data-common-2025/tar.gz/17d89dd248c8722e973e1fa7cedeca60f8c66668}
@@ -2332,6 +2339,8 @@ snapshots:
     dependencies:
       '@sinclair/typebox': 0.33.22
       json-stable-stringify: 1.2.1
+
+  '@mjt-services/daimon-common-2025@https://codeload.github.com/mjt-services/daimon-common-2025/tar.gz/bdbbac062cee9cdf703484a8b7af6bcf99e2f1e7': {}
 
   '@mjt-services/data-common-2025@https://codeload.github.com/mjt-services/data-common-2025/tar.gz/17d89dd248c8722e973e1fa7cedeca60f8c66668': {}
 

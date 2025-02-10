@@ -6,6 +6,7 @@ import { useConnection } from "./useConnection";
 import type { VastaiConnectionMap } from "@mjt-services/vastai-common-2025";
 import type { TunnelConnectionMap } from "@mjt-services/tunnel-common-2025";
 import type { DataConnectionMap } from "@mjt-services/data-common-2025";
+import type { DaimonConnectionMap } from "@mjt-services/daimon-common-2025";
 
 export let _connection:
   | Awaited<ReturnType<typeof createConnection>>
@@ -14,7 +15,10 @@ export let _connection:
 export const createConnection = async () => {
   const config = await Idbs.get(AppConfigIdb, "config");
   const con = await Messages.createConnection<
-    VastaiConnectionMap & TunnelConnectionMap & DataConnectionMap
+    VastaiConnectionMap &
+      TunnelConnectionMap &
+      DataConnectionMap &
+      DaimonConnectionMap
   >({
     server: GLOBALS.mqUrl,
     options: { log: console.log },
